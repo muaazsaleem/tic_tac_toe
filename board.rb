@@ -41,7 +41,7 @@ class Board
 			puts "\t square 1 2 3" 
 			print "row #{i} -" 
 			@rows[i].squares.each do |j|
-				print j.display
+				print j.input
 			end
 			
 			

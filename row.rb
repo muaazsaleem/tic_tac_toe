@@ -1,14 +1,7 @@
 class Row
-	
-	def initialize 
+	attr_accessor :squares
+	def initialize
 		@squares = []
-		
-	end
-	def squares
-		@squares
-	end
-	def squares= *squares
-		squares.each{|x| @squares << x unless occupied? } 
 	end
 
 	def occupied?
@@ -16,9 +9,9 @@ class Row
 	end
 
 	def occupied_by_same_user?
-		return false unless occupied
-		return @squares.all?{|square| square.input = :x  } || 
-				@squares.all?{|square| square.input = :o  }
+		return false unless occupied?
+		return @squares.all?{|square| square.input == :x  } || 
+				@squares.all?{|square| square.input == :o  }
 	end
 	
 	def occupied_by

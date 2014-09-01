@@ -13,7 +13,9 @@ class Square
 		(letter == "x") || (letter == "o")
 	end
 
-	def display
-		@input
-	end
+	
 end
+
+
+
+
