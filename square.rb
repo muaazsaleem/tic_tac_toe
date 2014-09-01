@@ -1,17 +1,18 @@
 class Square
-	attr_accessor :input
+	attr_reader :input
 	
 	def input= input
-		if valid_user? input
+		if valid_user? input = " "
 			@input = input.to_sym
 		else
 			puts "Invalid User"
 		end
 	end
-
-	def valid_user? letter
-		(letter == "x") || (letter == "o")
-	end
+	private
+		def valid_input? letter
+			(letter == "x") || (letter == "o") ||
+			 (letter == :x) || (letter == :o) || (letter == " ")
+		end
 
 	
 end
