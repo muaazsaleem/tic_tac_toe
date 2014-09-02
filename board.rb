@@ -11,7 +11,7 @@ class Board
 		
 		3.times do |i|
 			3.times do |j|
-				@squares[i][j] = Square.new
+				@squares[i][j] = Square.new(" ")
 			end
 		end
 
@@ -31,7 +31,24 @@ class Board
 			
 		end
 	end
+
+	def display
+		3.times do |i|
+			3.times do |j|
+				print "|#{@rows[i].squares[j].input}"
+			end
+			puts "| "
+		end
+	end
+	def move row, column, input
+		@rows[row].squares[column].input = input
+	end
+
+
 	
 end
 
-Board.new
+game_board = Board.new
+game_board.display
+game_board.move(0,1,:x)
+game_board.display
