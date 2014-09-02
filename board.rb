@@ -11,9 +11,9 @@ class Board
 		
 		
 
-		3.times { |i| @rows[i] = Row.new }
-		3.times { |i| @columns[i] = Column.new}
-		2.times { |i| @diagnols[i] = Diagnol.new }
+		3.times { |i| @rows[i] = Row.new(3) }
+		3.times { |i| @columns[i] = Column.new(3)}
+		2.times { |i| @diagnols[i] = Diagnol.new(3) }
 		
 		@diagnols[0] = [@rows[0].squares[0], @rows[1].squares[1], @rows[2].squares[2]]
 		@diagnols[1] = [@rows[0].squares[2], @rows[1].squares[1], @rows[2].squares[0]]
@@ -21,8 +21,7 @@ class Board
 
 		3.times do |i|
 			3.times do |j|
-				@rows[i].squares[j] =  " "
-				@columns[j].squares[j] = @rows[i].squares[j]
+				@columns[j].squares[i] = @rows[i].squares[j]
 				
 			end
 			
@@ -33,37 +32,36 @@ class Board
 		5.times { print "="}
 		puts " "
 		3.times do |i|
-			3.times do |j|
-				if @rows[i].squares[j].class == Square
-					print "|#{@rows[i].squares[j].input}"
-				else
-					print "|#{@rows[i].squares[j]}"
-				end
-			end
+			3.times {|j| print "|#{@rows[i].squares[j].input}" }
 			puts "| "
 			
 		end
+		5.times { print "="}
+		puts " "
 	end
+	
 	def move row, column, input
-		
-		if !(@rows[row].squares[column].class == Square)
-			@rows[row].squares[column] = Square.new(input) 
+		if @rows[row].squares[column].input == " "
+			@rows[row].squares[column].input = input
 			true
 		else
 			false
-		end
-		
-
+		end 
 	end
 
+	def game_ended?
+		@rows.all?{|row| row.occupied?} #also covers the possiblity of columns and diagnols
+	end
 
+	def victor
+		return "Nobody" unless game_ended?
+		occupied = @rows.find{|row| row.occupied_by_same_user?} 
+		occupied ||= @columns.find{|column| column.occupied_by_same_user?} 
+		occupied ||= @diagnols.find{|diagnol| diagnol.occupied_by_same_user?} 
+		occupied.occupied_by 
+		
+	end
 	
 end
 
-game_board = Board.new
-game_board.display
-p game_board.move(0,1,:x)
-game_board.display
-p game_board.move(0,1,:x)
-game_board.display
 

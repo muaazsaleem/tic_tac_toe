@@ -2,13 +2,13 @@ require './square.rb'
 
 module GameRules
 	attr_accessor :squares
-	def initialize squares = []
+	def initialize i = 1
 		@squares = []
-		@squares = squares unless  squares.size > 3
+		i.times { |i| @squares[i] = Square.new } unless i>3
 	end
 
 	def occupied?
-		@squares.size >= 3
+		@squares.all?{|square| square.input == :x || square.input == :o}
 	end
 
 	def occupied_by_same_user?
